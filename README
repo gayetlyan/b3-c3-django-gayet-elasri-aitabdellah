@@ -1,0 +1,27 @@
+pip install django
+
+## COMPILER/MIGRER
+
+python manage.py makemigrations
+python manage.py migrate
+
+## LANCER LE SERVEUR
+
+python manage.py runserver
+
+## LIEN
+
+http://127.0.0.1:8000/
+
+## LIENS UTILES
+
+http://127.0.0.1:8000/login/
+http://127.0.0.1:8000/admin/
+http://127.0.0.1:8000/sites/
+http://127.0.0.1:8000/add-site/
+http://127.0.0.1:8000/import-passwords/
+http://127.0.0.1:8000/export-passwords/
+http://127.0.0.1:8000/signup/
+http://127.0.0.1:8000/login/
+
+On se s'est pas trop attardé sur le visual car on voulait faire le maximum de bonus. Sur les 4 on a reussi à en faire 2. On a pas eu le temps de crypter le mot de passe et la generation de mot de passe aléatoire ne fonctionne pas
