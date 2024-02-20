@@ -2,6 +2,8 @@ from django.db import models
 
 # Create your models here.
 from django.contrib.auth.models import User
+from django import forms
+
 
 class Contact(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -18,5 +20,13 @@ class Site(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
 
+
+class SiteForm(forms.ModelForm):
+    class Meta:
+        model = Site
+        fields = ['name', 'url', 'username', 'password']
+
     def __str__(self):
         return self.name
+
+

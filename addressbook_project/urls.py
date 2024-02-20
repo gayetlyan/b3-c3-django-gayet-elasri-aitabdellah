@@ -24,5 +24,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('addressbook.urls')),
     path('sites/', views.site_list, name='site_list'), 
+    path('add-site/', views.add_site, name='add_site'),  
 
 ]
