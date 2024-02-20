@@ -80,3 +80,21 @@ def export_passwords_csv(request):
         writer.writerow([password.username, password.password])  
 
     return response
+
+
+
+def import_passwords_csv(request):
+    if request.method == 'POST' and request.FILES.get('csv_file'):
+        csv_file = request.FILES['csv_file']
+        if csv_file.name.endswith('.csv'):
+            reader = csv.reader(csv_file)
+            next(reader)  
+            for row in reader:
+                username, password = row
+                Password.objects.create(username=username, password=password)
+            return HttpResponseRedirect('/passwords/') 
+        else:
+            return render(request, 'invalid_file_format.html')  
+    return render(request, 'addressbook/import_passwords.html')  
+
+    
