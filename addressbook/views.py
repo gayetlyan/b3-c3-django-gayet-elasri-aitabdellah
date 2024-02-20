@@ -8,6 +8,8 @@ from .forms import SiteForm
 import csv
 from django.http import HttpResponse
 from .models import Password
+from django.shortcuts import render, redirect, get_object_or_404
+
 
 
 
@@ -80,3 +82,26 @@ def export_passwords_csv(request):
         writer.writerow([password.username, password.password])  
 
     return response
+@login_required
+def site_update(request, pk):
+    site = Site.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = SiteForm(request.POST, instance=site)
+        if form.is_valid():
+            form.save()
+            return redirect('site_list')
+    else:
+        form = SiteForm(instance=site)
+    return render(request, 'addressbook/site_form.html', {'form': form})
+
+
+def supprimer_site(request, site_id):
+    # Récupérer le site à supprimer ou renvoyer une erreur 404 si le site n'existe pas
+    site = get_object_or_404(Site, pk=site_id)
+
+    # Supprimer le site
+    site.delete()
+
+    # Rediriger vers la liste des sites après la suppression
+    return redirect('site_list')
+
