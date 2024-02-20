@@ -26,6 +26,11 @@ class SiteForm(forms.ModelForm):
         model = Site
         fields = ['name', 'url', 'username', 'password']
 
+
+class Password(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+
     def __str__(self):
         return self.name
 

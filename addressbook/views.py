@@ -4,6 +4,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Contact
 from .forms import ContactForm
 from .models import Site
+from .forms import SiteForm
+import csv
+from django.http import HttpResponse
+from .models import Password
+
+
 
 
 @login_required
@@ -59,3 +65,18 @@ def add_site(request):
     else:
         form = SiteForm()
     return render(request, 'addressbook/add_site.html', {'form': form})
+
+
+def export_passwords_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="passwords.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Username', 'Password'])  
+
+    passwords = Password.objects.all()  
+
+    for password in passwords:
+        writer.writerow([password.username, password.password])  
+
+    return response
