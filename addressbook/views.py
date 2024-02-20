@@ -1,5 +1,5 @@
 # Create your views here.
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Contact
 from .forms import ContactForm
@@ -8,7 +8,11 @@ from .forms import SiteForm
 import csv
 from django.http import HttpResponse
 from .models import Password
+<<<<<<< HEAD
+from .utils import generate_random_password
+=======
 from django.shortcuts import render, redirect, get_object_or_404
+>>>>>>> e70c1ee14eee6e5109731b894c92bd1153bf5b15
 
 
 
@@ -61,9 +65,9 @@ def add_site(request):
     if request.method == 'POST':
         form = SiteForm(request.POST)
         if form.is_valid():
-            form.instance.user = request.user
+            form.instance.user = request.user  
             form.save()
-            return redirect('site_list') 
+            return redirect('site_list')
     else:
         form = SiteForm()
     return render(request, 'addressbook/add_site.html', {'form': form})
@@ -82,13 +86,42 @@ def export_passwords_csv(request):
         writer.writerow([password.username, password.password])  
 
     return response
+<<<<<<< HEAD
+
+
+
+def import_passwords_csv(request):
+    if request.method == 'POST' and request.FILES.get('csv_file'):
+        csv_file = request.FILES['csv_file']
+        if csv_file.name.endswith('.csv'):
+            reader = csv.reader(csv_file)
+            next(reader)  
+            for row in reader:
+                username, password = row
+                Password.objects.create(username=username, password=password)
+            return HttpResponseRedirect('/passwords/') 
+        else:
+            return render(request, 'invalid_file_format.html')  
+    return render(request, 'addressbook/import_passwords.html')  
+
+
+def update_site(request, pk):
+    site = get_object_or_404(Site, pk=pk)
+=======
 @login_required
 def site_update(request, pk):
     site = Site.objects.get(pk=pk)
+>>>>>>> e70c1ee14eee6e5109731b894c92bd1153bf5b15
     if request.method == 'POST':
         form = SiteForm(request.POST, instance=site)
         if form.is_valid():
             form.save()
+<<<<<<< HEAD
+            return redirect('site_list') 
+    else:
+        form = SiteForm(instance=site)
+    return render(request, 'addressbook/update_site.html', {'form': form})
+=======
             return redirect('site_list')
     else:
         form = SiteForm(instance=site)
@@ -104,4 +137,5 @@ def supprimer_site(request, site_id):
 
     # Rediriger vers la liste des sites après la suppression
     return redirect('site_list')
+>>>>>>> e70c1ee14eee6e5109731b894c92bd1153bf5b15
 

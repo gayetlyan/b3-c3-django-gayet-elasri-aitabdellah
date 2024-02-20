@@ -19,6 +19,7 @@ class Site(models.Model):
     url = models.URLField()
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
+    generate_password = models.BooleanField(default=False)
 
 
 class SiteForm(forms.ModelForm):
@@ -30,6 +31,8 @@ class SiteForm(forms.ModelForm):
 class Password(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
+    generate_password = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.name
