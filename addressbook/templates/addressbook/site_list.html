@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Site List</title>
+      <style>
+          body.dark-mode {
+              background-color: #333;
+              color: #fff;
+          }
+      </style>
   </head>
   <body>
     <h1>Liste des Sites</h1>
@@ -20,6 +26,13 @@
       </li>
       {% endfor %}
     </ul>
+    <button onclick="toggleDarkMode()">Dark Mode</button>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        }
+    </script>
   </body>
 </html>
 <!-- site_list.html -->

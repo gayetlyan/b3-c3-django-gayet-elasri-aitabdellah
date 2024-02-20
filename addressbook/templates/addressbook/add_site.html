@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajouter un Site</title>
+      <style>
+          body.dark-mode {
+              background-color: #333;
+              color: #fff;
+          }
+      </style>
   </head>
   <body>
     <h1>Ajouter un Site</h1>
@@ -11,5 +17,12 @@
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Ajouter</button>
     </form>
+    <button onclick="toggleDarkMode()">Dark Mode</button>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        }
+    </script>
   </body>
 </html>
