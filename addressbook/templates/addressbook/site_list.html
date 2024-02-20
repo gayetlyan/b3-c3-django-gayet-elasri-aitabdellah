@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1>Liste des Sites</h1>
+    <a href="{% url 'add_site' %}">Ajouter un site</a>
     <ul>
       {% for site in sites %}
       <li>
@@ -14,6 +15,8 @@
         <strong>URL:</strong> <a href="{{ site.url }}">{{ site.url }}</a><br />
         <strong>Identifiant:</strong> {{ site.username }}<br />
         <strong>Mot de passe:</strong> {{ site.password }}<br />
+          <a href="{% url 'site_update' site.pk %}">Modifier</a>
+          <a href="{% url 'supprimer_site' site.pk %}">Supprimer</a>
       </li>
       {% endfor %}
     </ul>
