@@ -13,6 +13,8 @@ urlpatterns = [
     path('add-site/', views.add_site, name='add_site'),  
     path('export-passwords/', views.export_passwords_csv, name='export_passwords_csv'),
     path('import-passwords/', import_passwords_csv, name='import_passwords_csv'),
+    path('update-site/<int:pk>/', views.update_site, name='update_site'),
+    
 
 
 ]

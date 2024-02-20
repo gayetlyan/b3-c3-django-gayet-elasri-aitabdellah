@@ -14,25 +14,9 @@
         <strong>URL:</strong> <a href="{{ site.url }}">{{ site.url }}</a><br />
         <strong>Identifiant:</strong> {{ site.username }}<br />
         <strong>Mot de passe:</strong> {{ site.password }}<br />
+        <a href="{% url 'update_site' pk=site.pk %}">Modifier</a>
       </li>
       {% endfor %}
     </ul>
   </body>
 </html>
-<!-- site_list.html -->
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Liste des Sites</title>
-  </head>
-  <body>
-    <h1>Liste des Sites</h1>
-    <ul>
-      {% for site in sites %}
-      <li>{{ site.name }} - {{ site.url }}</li>
-      {% endfor %}
-    </ul>
-  </body>
-</html> -->
