@@ -10,5 +10,5 @@ urlpatterns = [
     path('sites/', views.site_list, name='site_list'), 
     path('add-site/', views.add_site, name='add_site'),  
     path('export-passwords/', views.export_passwords_csv, name='export_passwords_csv'),
-
+    path('login/', views.user_login, name='login'),
 ]
