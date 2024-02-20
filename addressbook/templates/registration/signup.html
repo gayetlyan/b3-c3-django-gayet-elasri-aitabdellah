@@ -1,9 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+{% extends 'base.html' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+    <h1>Inscription</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">S'inscrire</button>
+    </form>
+
     <style>
         /* Styles CSS ici */
         body {
@@ -17,25 +23,9 @@
             height: 100vh;
         }
 
-        .login-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 300px;
-            max-width: 90%;
-            text-align: center;
-        }
-
         h1 {
             color: #333;
             margin-bottom: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         input[type="text"],
@@ -82,17 +72,4 @@
             color: #0056b3;
         }
     </style>
-</head>
-<body>
-    <div >
-        <h1>Connexion</h1>
-        <form method="post">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <button type="submit">Login</button>
-        </form>
-        <p>Pas encore inscrit ? <a href="{% url 'signup' %}">Inscrivez-vous ici</a>.</p>
-    </div>
-</body>
-</html>
+{% endblock %}

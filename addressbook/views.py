@@ -1,4 +1,6 @@
 # Create your views here.
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Contact
@@ -13,12 +15,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 
 
-
-
 @login_required
 def contact_list(request):
     contacts = Contact.objects.filter(user=request.user)
     return render(request, 'addressbook/contact_list.html', {'contacts': contacts})
+
 
 @login_required
 def contact_create(request):
@@ -33,6 +34,7 @@ def contact_create(request):
         form = ContactForm()
     return render(request, 'addressbook/contact_form.html', {'form': form})
 
+
 @login_required
 def contact_update(request, pk):
     contact = Contact.objects.get(pk=pk)
@@ -45,12 +47,12 @@ def contact_update(request, pk):
         form = ContactForm(instance=contact)
     return render(request, 'addressbook/contact_form.html', {'form': form})
 
+
 @login_required
 def contact_delete(request, pk):
     contact = Contact.objects.get(pk=pk)
     contact.delete()
     return redirect('contact_list')
-
 
 
 def site_list(request):
@@ -75,14 +77,46 @@ def export_passwords_csv(request):
     response['Content-Disposition'] = 'attachment; filename="passwords.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['Username', 'Password'])  
+    writer.writerow(['Username', 'Password'])
 
-    passwords = Password.objects.all()  
+    passwords = Password.objects.all()
 
     for password in passwords:
-        writer.writerow([password.username, password.password])  
+        writer.writerow([password.username, password.password])
 
     return response
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('site_list')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {'form': form})
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 
 
