@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -24,7 +24,7 @@
 <<<<<<< HEAD
         <a href="{% url 'update_site' pk=site.pk %}">Modifier</a>
 =======
-          <a href="{% url 'site_update' site.pk %}">Modifier</a>
+          <a href="{% url 'update_site' site.pk %}">Modifier</a>
           <a href="{% url 'supprimer_site' site.pk %}">Supprimer</a>
 >>>>>>> e70c1ee14eee6e5109731b894c92bd1153bf5b15
       </li>
@@ -36,6 +36,44 @@
             const body = document.body;
             body.classList.toggle('dark-mode');
         }
+    </script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Site List</title>
+    <style>
+      body.dark-mode {
+        background-color: #333;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Liste des Sites</h1>
+    <a href="{% url 'add_site' %}">Ajouter un site</a>
+    <ul>
+      {% for site in sites %}
+      <li>
+        <strong>Nom:</strong> {{ site.name }}<br />
+        <strong>URL:</strong> <a href="{{ site.url }}">{{ site.url }}</a><br />
+        <strong>Identifiant:</strong> {{ site.username }}<br />
+        <strong>Mot de passe:</strong> {{ site.password }}<br />
+        <a href="{% url 'update_site' site.pk %}">Modifier</a>
+        <a href="{% url 'supprimer_site' site.pk %}">Supprimer</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <button onclick="toggleDarkMode()">Dark Mode</button>
+    <script>
+      function toggleDarkMode() {
+        const body = document.body;
+        body.classList.toggle("dark-mode");
+      }
     </script>
   </body>
 </html>

@@ -11,5 +11,12 @@
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Enregistrer les modifications</button>
     </form>
+    <button onclick="toggleDarkMode()">Dark Mode</button>
+    <script>
+      function toggleDarkMode() {
+        const body = document.body;
+        body.classList.toggle("dark-mode");
+      }
+    </script>
   </body>
 </html>
