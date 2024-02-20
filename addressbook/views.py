@@ -47,3 +47,15 @@ def contact_delete(request, pk):
 def site_list(request):
     sites = Site.objects.filter(user=request.user)
     return render(request, 'addressbook/site_list.html', {'sites': sites})
+
+
+def add_site(request):
+    if request.method == 'POST':
+        form = SiteForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('site_list') 
+    else:
+        form = SiteForm()
+    return render(request, 'addressbook/add_site.html', {'form': form})
